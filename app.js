@@ -31,7 +31,7 @@ async function run() {
     const passwordValue = await getPassword(passwordName);
     console.log(`Your password is ${passwordValue} 🎉`);
   }
-  await close();
+  close();
 }
 
 run();
