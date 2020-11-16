@@ -1,6 +1,6 @@
 const { readCommandLineArguments } = require("./lib/commandLine");
 const { close, connect } = require("./lib/database");
-const { getPassword, setPassword } = require("./lib/passwords");
+const { getPassword, setPassword, deletePassword } = require("./lib/passwords");
 const { askForMasterPassword } = require("./lib/questions");
 const { isMasterPasswordCorrect } = require("./lib/validation");
 
@@ -24,7 +24,11 @@ async function run() {
     return process.exit(9);
   }
 
-  if (newPasswordValue) {
+  if (passwordName === "delete") {
+    const passwordToDelete = newPasswordValue;
+    await deletePassword(passwordToDelete);
+    console.log("Password is deleted.");
+  } else if (newPasswordValue) {
     await setPassword(passwordName, newPasswordValue);
     console.log(`Password ${passwordName} set 🎉`);
   } else {
