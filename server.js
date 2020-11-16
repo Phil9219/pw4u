@@ -8,8 +8,13 @@ const port = 3000;
 
 app.get("/api/passwords/:name", async (request, response) => {
   const { name } = request.params;
-  const passwordValue = await getPassword(name);
-  response.send(passwordValue);
+  try {
+    const passwordValue = await getPassword(name);
+    response.send(passwordValue);
+  } catch (error) {
+    console.error(error);
+    response.status(404).send("Could not find the password you have specified");
+  }
 });
 
 app.post("/api/passwords", (request, response) => {
