@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const { readCommandLineArguments } = require("./lib/commandLine");
 const { close, connect } = require("./lib/database");
 const { getPassword, setPassword, deletePassword } = require("./lib/passwords");
@@ -5,10 +7,7 @@ const { askForMasterPassword } = require("./lib/questions");
 const { isMasterPasswordCorrect } = require("./lib/validation");
 
 async function run() {
-  await connect(
-    "mongodb+srv://phil:rceTBvhDn9suKXY8@cluster0.umnb6.mongodb.net/PasswordSaver?retryWrites=true&w=majority",
-    "PasswordSaver"
-  );
+  await connect(process.env.DB_USER_PASSWORD, process.env.DB_NAME);
   console.log("connect to db");
 
   const masterPassword = await askForMasterPassword();
