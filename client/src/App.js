@@ -3,7 +3,7 @@ import "./App.css";
 import { getPassword } from "./api/password";
 import { useEffect } from "react";
 import useAsync from "./hooks/useAsync";
-
+import Form from "./components/form";
 function App() {
   const { data, loading, error, doFetch } = useAsync(() => getPassword("wifi"));
 
@@ -19,6 +19,7 @@ function App() {
         {data}
         {loading && <div>Loading...</div>}
         {error && <div>{error.message}</div>}
+        <Form />
       </header>
     </div>
   );
