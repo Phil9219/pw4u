@@ -6,11 +6,11 @@ import { useState, useEffect } from "react";
 function App() {
   const [password, setPassword] = useState(null);
   useEffect(() => {
-    const dofetch = async () => {
+    const doFetch = async () => {
       const newPassword = await getPassword("wifi");
       setPassword(newPassword);
     };
-    dofetch();
+    doFetch();
   }, []);
   return (
     <div className="App">
