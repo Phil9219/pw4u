@@ -1,22 +1,24 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { getPassword } from "./api/password";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import useAsync from "./hooks/useAsync";
 
 function App() {
-  const [password, setPassword] = useState(null);
+  const { data, loading, error, doFetch } = useAsync(() => getPassword("wifi"));
+
   useEffect(() => {
-    const doFetch = async () => {
-      const newPassword = await getPassword("wifi");
-      setPassword(newPassword);
-    };
     doFetch();
   }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        {password}
+
+        {data}
+        {loading && <div>Loading...</div>}
+        {error && <div>{error.message}</div>}
       </header>
     </div>
   );
