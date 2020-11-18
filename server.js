@@ -1,11 +1,11 @@
 require("dotenv").config();
 const express = require("express");
-const { getPassword, setPassword } = require("./lib/passwords");
+const { getPassword, setPassword, deletePassword } = require("./lib/passwords");
 const { connect } = require("./lib/database");
 
 const app = express();
 app.use(express.json());
-const port = 3000;
+const port = 3600;
 
 app.get("/api/passwords/:name", async (request, response) => {
   const { name } = request.params;
@@ -39,6 +39,15 @@ app.post("/api/passwords/", async (request, response) => {
       .status(500)
       .send("An unexpected error occured. Please try again later!");
   }
+});
+
+app.delete("/api/passwords/:name", async (request, response) => {
+  const { name } = request.params;
+  const result = await deletePassword(name);
+  if (result.deletedCount === 0) {
+    return response.status(404).send("Could not find Password");
+  }
+  response.status(200).send("Password deleted");
 });
 
 async function run() {
