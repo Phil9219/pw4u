@@ -20,7 +20,9 @@
     "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run storybook\"",
     "server": "nodemon server.js",
     "client": "cd client && npm start",
-    "storybook": "cd client && npm run storybook"
+    "storybook": "cd client && npm run storybook",
+    "build": "cd client && npm run build && npm run build-storybook",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
